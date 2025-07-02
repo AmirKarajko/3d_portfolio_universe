@@ -131,6 +131,16 @@ const contactPanel = createPanel(new THREE.Vector3(8, 0, spacing * 3), 10, 4,
   }
 );
 
+let lastY;
+window.addEventListener("touchstart", e => lastY = e.touches[0].clientY, {passive:false});
+window.addEventListener("touchmove", e => {
+  e.preventDefault();
+  let y = e.touches[0].clientY;
+  targetZ += (lastY - y) * 0.05;
+  targetZ = THREE.MathUtils.clamp(targetZ, minZ, maxZ);
+  lastY = y;
+}, {passive:false});
+
 window.addEventListener("wheel", (event) => {
   event.preventDefault();
   targetZ += event.deltaY * 0.02;
