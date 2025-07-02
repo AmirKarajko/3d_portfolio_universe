@@ -76,6 +76,10 @@ const planetProjects = createPlanet(0xFF0000, spacing * 2, "Projects", 2);
 const planetContact = createPlanet(0x00FF00, spacing * 3, "Contact me", 2);
 
 let targetZ = camera.position.z;
+const moveSpeed = 0.5;
+const keysPressed = {};
+const minZ = spacing * 2 - 3;
+const maxZ = 15;
 
 const aboutPanel = createPanel(new THREE.Vector3(8, 0, 0), 10, 5,
 (ctx, canvas) => {
@@ -128,9 +132,34 @@ const contactPanel = createPanel(new THREE.Vector3(8, 0, spacing * 3), 10, 4,
 );
 
 window.addEventListener("wheel", (event) => {
+  event.preventDefault();
   targetZ += event.deltaY * 0.02;
-  targetZ = THREE.MathUtils.clamp(targetZ, spacing * 2 - 3, 15);
+  targetZ = THREE.MathUtils.clamp(targetZ, minZ, maxZ);
+}, { passive: false });
+
+window.addEventListener("keydown", (event) => {
+  keysPressed[event.key.toLowerCase()] = true;
 });
+
+window.addEventListener("keyup", (event) => {
+  keysPressed[event.key.toLowerCase()] = false;
+});
+
+function updateControls() {
+  if (keysPressed['w']) targetZ -= moveSpeed;
+  if (keysPressed['s']) targetZ += moveSpeed;
+  if (keysPressed['a']) targetZ += moveSpeed;
+  if (keysPressed['d']) targetZ -= moveSpeed;
+  if (keysPressed['arrowup']) targetZ -= moveSpeed;
+  if (keysPressed['arrowdown']) targetZ += moveSpeed;
+  if (keysPressed['arrowleft']) targetZ += moveSpeed;
+  if (keysPressed['arrowright']) targetZ -= moveSpeed;
+
+  targetZ = THREE.MathUtils.clamp(targetZ, minZ, maxZ);
+
+  requestAnimationFrame(updateControls);
+}
+updateControls();
 
 function animate() {
   requestAnimationFrame(animate);
