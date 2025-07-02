@@ -129,7 +129,7 @@ const contactPanel = createPanel(new THREE.Vector3(8, 0, spacing * 3), 10, 4,
 
 window.addEventListener("wheel", (event) => {
   targetZ += event.deltaY * 0.02;
-  targetZ = THREE.MathUtils.clamp(targetZ, spacing * 3 - 5, 15);
+  targetZ = THREE.MathUtils.clamp(targetZ, spacing * 2 - 3, 15);
 });
 
 function animate() {
