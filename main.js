@@ -136,7 +136,7 @@ window.addEventListener("touchstart", e => lastY = e.touches[0].clientY, {passiv
 window.addEventListener("touchmove", e => {
   e.preventDefault();
   let y = e.touches[0].clientY;
-  targetZ += (lastY - y) * 0.05;
+  targetZ += (lastY - y) * 0.25;
   targetZ = THREE.MathUtils.clamp(targetZ, minZ, maxZ);
   lastY = y;
 }, {passive:false});
