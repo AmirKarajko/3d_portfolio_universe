@@ -84,8 +84,8 @@ const maxZ = 15;
 const aboutPanel = createPanel(new THREE.Vector3(8, 0, 0), 10, 5,
 (ctx, canvas) => {
     ctx.fillStyle = "white";
-    ctx.font = "60px Arial";
-    ctx.fillText("I am a developer.", 40, 100);
+    ctx.font = "46px Arial";
+    ctx.fillText("My name is Amir Karajko and I am a developer.", 40, 100);
     ctx.font = "36px Arial";
     ctx.fillText("I designed and developed this 3D portfolio.", 40, 160);
     ctx.fillText("Expert in programming.", 40, 210);
